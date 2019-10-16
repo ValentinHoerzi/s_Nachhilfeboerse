@@ -1,0 +1,88 @@
+﻿<Window x:Class="Nachhilfeboerse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nachhilfeboerse"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="Nachhilfebörse" Height="545" Width="445">
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Click="OnOpen_Click"/>
+                <MenuItem Header="_Save" Click="OnSave_Click"/>
+            </MenuItem>
+        </Menu>
+        <ToolBar DockPanel.Dock="Top">
+            <ComboBox Name="cbxStudents" Margin="0" Width="193" DisplayMemberPath="Name" SelectionChanged="CbxStudents_SelectionChanged"/>
+            <Button x:Name="btn4a" Click="Btn4a_Click"  Content="4a"/>
+            <Button x:Name="btn4b" Click="Btn4b_Click"  Content="4b"/>
+        </ToolBar>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock x:Name="txtbStudentName" 
+                           TextAlignment="Center"
+                           FontSize="20"
+                           Background="Aquamarine">
+                </TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="180"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Schulstufe" 
+                          Grid.Row="0"
+                          HorizontalAlignment="Left" Height="147" Margin="8,18,0,0" VerticalAlignment="Top" Width="123">
+                        <StackPanel x:Name="stpSchulstufe"
+                            HorizontalAlignment="Stretch">
+
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Gegenstand" 
+                          Grid.Row="1"
+                          HorizontalAlignment="Left" Height="221" Margin="10,12,0,0" VerticalAlignment="Top" Width="123">
+                        <StackPanel x:Name="stpGegenstand"
+                            HorizontalAlignment="Stretch">
+            
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="34"/>
+                        <RowDefinition Height="34"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnAdd" Content="Add" Click="BtnAdd_Click" Grid.Row="0" Height="20" Width="50"/>
+                    <Label Grid.Row="1" Name="lblDisplayNachhilfeschueler" Content="x Nachhilfen:"/>
+                    <GroupBox
+                          Grid.Row="2"
+                          HorizontalAlignment="Left" Height="296" Margin="8,18,0,0" VerticalAlignment="Top" Width="123">
+                        <StackPanel x:Name="stpNachhilfen"
+                            HorizontalAlignment="Stretch">
+
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Viewbox Stretch="Uniform" Width="100" VerticalAlignment="Top">
+                        <Image x:Name="imgStudent" Width="100" Source="Images/Hörzi_Valentin.jpg"/>
+                    </Viewbox>
+                </Grid>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
