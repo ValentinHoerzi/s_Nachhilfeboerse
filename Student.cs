@@ -17,7 +17,7 @@ namespace Nachhilfeboerse
         public string Name => $"{Lastname} {Firstname}";
         public string ImagePath => $"Images/{Lastname}_{Firstname}.jpg";
 
-        public List<Service> Services { get; set; }
+        public List<Service> Services { get; set; } = new List<Service>();
 
         public static Student Parse(string line)
         {

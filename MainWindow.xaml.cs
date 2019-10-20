@@ -23,6 +23,9 @@ namespace Nachhilfeboerse
     {
 
         private List<Student> students = new List<Student>();
+        private Student curretnStudent;
+        private int selectedYear = -1;
+        private string selectedClazz = "-1";
 
         public MainWindow() => InitializeComponent();
 
@@ -50,12 +53,12 @@ namespace Nachhilfeboerse
 
         private void initSchoolyearStackPanel()
         {
-            foreach (var s in Service.Levels) AddRadioButtonToStackPanel(stpSchulstufe, $"{s}");
+            foreach (var i in Service.Levels) AddRadioButtonToStackPanel(stpSchulstufe, $"{i}");
         }
 
         private void initSubjectStackPanel()
         {
-            foreach (string sub in Service.Subjects) AddRadioButtonToStackPanel(stpGegenstand, sub);
+            foreach (var s in Service.Subjects) AddRadioButtonToStackPanel(stpGegenstand, s);
         }
 
         private void initButtonBackgrounds()
@@ -64,9 +67,9 @@ namespace Nachhilfeboerse
             btn4b.Background = Brushes.Gray;
         }
 
-        private void SetStudentImage(Student student)
+        private void SetStudentImage()
         {
-            imgStudent.Source = new BitmapImage(new Uri(student.ImagePath, UriKind.Relative));
+            imgStudent.Source = new BitmapImage(new Uri(curretnStudent.ImagePath, UriKind.Relative));
         }
 
         private void AddRadioButtonToStackPanel(StackPanel sp, string radioButtonName)
@@ -77,42 +80,76 @@ namespace Nachhilfeboerse
             };
 
             sp.Children.Add(rdb);
-            rdb.Checked += Rdb_Checked;
+
+            if (sp == stpGegenstand)
+            {
+                rdb.Checked += Rdb_Checked;
+            }
+            else
+            {
+                rdb.Checked += Rdb_Checked2;
+            }
         }
 
         private void Rdb_Checked(object sender, RoutedEventArgs e)
         {
-            
+            selectedClazz = (string) ((RadioButton)sender).Content;
+        }
+
+        private void Rdb_Checked2(object sender, RoutedEventArgs e)
+        {
+            selectedYear = int.Parse((string)((RadioButton)sender).Content);
         }
 
         private void Btn4a_Click(object sender, RoutedEventArgs e)
         {
-
+            FilterComboboxForClass("4a");
         }
 
         private void Btn4b_Click(object sender, RoutedEventArgs e)
         {
-
+            FilterComboboxForClass("4b");
         }
-
-        private void OnOpen_Click(object sender, RoutedEventArgs e)
+        private void FilterComboboxForClass(string v)
         {
-
-        }
-
-        private void OnSave_Click(object sender, RoutedEventArgs e)
-        {
-
+            var temp = new List<Student>();
+            foreach(var student in students) if (student.Clazz.Equals(v)) temp.Add(student);
+            cbxStudents.ItemsSource = temp;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
+            var service = new Service
+            {
+                Level = selectedYear,
+                Subject = selectedClazz
+            };
 
+            curretnStudent.Services.Add(service);
+            SetStudentsNachhilfeen();
+            SetLabelText();
+        }
+
+        private void SetStudentsNachhilfeen()
+        {
+            if(lstNames.Items.Count > 0) lstNames.Items.Clear();
+            foreach (var service in curretnStudent.Services) lstNames.Items.Add(service); 
+            lstNames.Items.Refresh();
         }
 
         private void CbxStudents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            curretnStudent = (Student) cbxStudents.SelectedItem;
 
+
+            SetStudentImage();
+            SetStudentsNachhilfeen();
+            SetLabelText();
+        }
+
+        private void SetLabelText()
+        {
+            lblDisplayNachhilfeschueler.Content = $"{curretnStudent.Services.Count} Nachhilfen:";
         }
     }
 }

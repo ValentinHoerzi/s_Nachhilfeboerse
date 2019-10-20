@@ -11,8 +11,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Click="OnOpen_Click"/>
-                <MenuItem Header="_Save" Click="OnSave_Click"/>
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
             </MenuItem>
         </Menu>
         <ToolBar DockPanel.Dock="Top">
@@ -68,18 +68,16 @@
                     </Grid.RowDefinitions>
                     <Button x:Name="btnAdd" Content="Add" Click="BtnAdd_Click" Grid.Row="0" Height="20" Width="50"/>
                     <Label Grid.Row="1" Name="lblDisplayNachhilfeschueler" Content="x Nachhilfen:"/>
-                    <GroupBox
-                          Grid.Row="2"
-                          HorizontalAlignment="Left" Height="296" Margin="8,18,0,0" VerticalAlignment="Top" Width="123">
-                        <StackPanel x:Name="stpNachhilfen"
-                            HorizontalAlignment="Stretch">
 
-                        </StackPanel>
-                    </GroupBox>
+
+                    <ListBox x:Name="lstNames"
+                        Grid.Row="2"
+                          HorizontalAlignment="Left" Height="296" Margin="8,18,0,0" VerticalAlignment="Top" Width="123"/>
+
                 </Grid>
                 <Grid Grid.Column="2">
                     <Viewbox Stretch="Uniform" Width="100" VerticalAlignment="Top">
-                        <Image x:Name="imgStudent" Width="100" Source="Images/Hörzi_Valentin.jpg"/>
+                        <Image x:Name="imgStudent" Width="100"/>
                     </Viewbox>
                 </Grid>
             </Grid>
